@@ -4,24 +4,39 @@ import Account from './components/Account/Account';
 import { listAccountResponse } from './components/Account/type';
 import { Toaster } from 'react-hot-toast';
 import { Route, Routes } from 'react-router-dom';
-import Create from './components/Account/Create/Create';
+import { default as CreateAccount } from './components/Account/Create';
+import Nav from './components/Nav/Nav';
+import Chart from './components/Account/Chart';
 
 const accountsURI = 'http://localhost:3333/accounts?limit=50';
 
 function App() {
+  const [accountsToggled, setAccountsToggled] = useState<boolean>(false);
+
   return (
     <>
-      <Routes>
-        <Route
-          path="/accounts"
-          element={
-            <Suspense fallback={<AccountsLoading />}>
-              <Accounts />
-            </Suspense>
-          }
-        ></Route>
-        <Route path="/accounts/create" element={<Create />}></Route>
-      </Routes>
+      <div style={{ display: 'flex', flexDirection: 'row' }}>
+        <Nav
+          accountsToggled={accountsToggled}
+          setAccountsToggled={setAccountsToggled}
+        />
+        <main
+          style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}
+        >
+          <Routes>
+            <Route
+              path="/accounts"
+              element={
+                <Suspense fallback={<AccountsLoading />}>
+                  <Accounts />
+                </Suspense>
+              }
+            />
+            <Route path="/accounts/chart" element={<Chart />} />
+            <Route path="/accounts/create" element={<CreateAccount />} />
+          </Routes>
+        </main>
+      </div>
 
       <Toaster />
     </>

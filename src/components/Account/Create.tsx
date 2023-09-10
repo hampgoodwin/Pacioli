@@ -4,7 +4,7 @@ import {
   createAccountRequest,
   createAccountResponse,
   emptyDefaultCreateAccount
-} from '../type';
+} from './type';
 import toast from 'react-hot-toast';
 
 const accountsURI = 'http://localhost:3333/accounts';
